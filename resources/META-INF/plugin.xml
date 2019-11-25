@@ -1,0 +1,28 @@
+<idea-plugin>
+  <id>TEAL Plugin</id>
+  <name>TEAL</name>
+  <version>1.0</version>
+  <vendor email="yaochitc@gmail.com" url="https://github.com/yaochitc/teal-intellij-plugin">Yao Chi</vendor>
+
+  <description><![CDATA[
+      A plugin that adds first-class support for TEAL
+    ]]></description>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="173.0"/>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+
+  <extensions defaultExtensionNs="com.intellij">
+    <fileTypeFactory implementation="io.yaochi.intellij.plugin.TEALFileTypeFactory" />
+  </extensions>
+
+  <actions>
+    <!-- Add your actions here -->
+  </actions>
+
+</idea-plugin>

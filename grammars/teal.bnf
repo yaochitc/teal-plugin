@@ -1,0 +1,7 @@
+{
+  parserClass='io.yaochi.intellij.plugin.parser.TEALParser'
+
+  elementTypeHolderClass="io.yaochi.intellij.plugin.psi.SimpleTypes"
+  elementTypeClass="io.yaochi.intellij.plugin.psi.SimpleElementType"
+  tokenTypeClass="io.yaochi.intellij.plugin.SimpleTokenType"
+}

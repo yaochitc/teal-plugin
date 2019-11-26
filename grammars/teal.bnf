@@ -1,7 +1,14 @@
 {
   parserClass='io.yaochi.intellij.plugin.parser.TEALParser'
 
-  elementTypeHolderClass="io.yaochi.intellij.plugin.psi.SimpleTypes"
-  elementTypeClass="io.yaochi.intellij.plugin.psi.SimpleElementType"
-  tokenTypeClass="io.yaochi.intellij.plugin.SimpleTokenType"
+  psiClassPrefix='TEAL'
+  psiImplClassSuffix='Impl'
+  psiPackage='io.yaochi.intellij.plugin.psi'
+  psiImplPackage='io.yaochi.intellij.plugin.psi.impl'
+  psiImplUtilClass="io.yaochi.intellij.plugin.psi.impl.TEALPsiImplUtil"
+
+  elementTypeHolderClass="io.yaochi.intellij.plugin.psi.TEALTypes"
+  elementTypeClass="io.yaochi.intellij.plugin.psi.TEALElementType"
+  tokenTypeClass="io.yaochi.intellij.plugin.psi.TEALTokenType"
 }
+

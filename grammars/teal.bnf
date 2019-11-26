@@ -68,4 +68,13 @@
   ]
 }
 
+PushStackExpr ::=
+    PushIntExpr
+  | PushByteExpr
+  | PushArgExpr
+
+
+PushIntExpr ::= int
+PushByteExpr ::= byte
+PushArgExpr ::= arg
 

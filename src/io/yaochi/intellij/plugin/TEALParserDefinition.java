@@ -8,13 +8,23 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.FileViewProvider;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import com.intellij.psi.TokenType;
+import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.IFileElementType;
 import com.intellij.psi.tree.TokenSet;
+import io.yaochi.intellij.plugin.parser.TEALParser;
+import io.yaochi.intellij.plugin.psi.TEALTokenType;
 import org.jetbrains.annotations.NotNull;
+import static io.yaochi.intellij.plugin.psi.TEALTypes.*;
 
 public class TEALParserDefinition implements ParserDefinition {
-	private static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE);
+	public static final IElementType LINE_COMMENT = new TEALTokenType("TEAL_LINE_COMMENT");
+	public static final IElementType MULTILINE_COMMENT = new TEALTokenType("TEAL_MULTILINE_COMMENT");
+
+	public static final IElementType WS = new TEALTokenType("TEAL_WHITESPACE");
+	public static final IElementType NLS = new TEALTokenType("TEAL_WS_NEW_LINES");
+
+	public static final TokenSet WHITESPACES = TokenSet.create(WS, NLS);
+	public static final TokenSet COMMENTS = TokenSet.create(LINE_COMMENT, MULTILINE_COMMENT);
 
 	@NotNull
 	@Override
@@ -24,13 +34,13 @@ public class TEALParserDefinition implements ParserDefinition {
 
 	@NotNull
 	public TokenSet getWhitespaceTokens() {
-		return WHITE_SPACES;
+		return WHITESPACES;
 	}
 
 	@NotNull
 	@Override
 	public TokenSet getCommentTokens() {
-		return null;
+		return COMMENTS;
 	}
 
 	@NotNull
@@ -41,7 +51,7 @@ public class TEALParserDefinition implements ParserDefinition {
 
 	@Override
 	public PsiParser createParser(Project project) {
-		return null;
+		return new TEALParser();
 	}
 
 	@Override
@@ -61,8 +71,8 @@ public class TEALParserDefinition implements ParserDefinition {
 
 	@NotNull
 	@Override
-	public PsiElement createElement(ASTNode astNode) {
-		return null;
+	public PsiElement createElement(ASTNode node) {
+		return Factory.createElement(node);
 	}
 
 }

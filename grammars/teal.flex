@@ -2,10 +2,9 @@ package io.yaochi.intellij.plugin.parser;
 
 import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
-
-import static com.intellij.psi.TokenType.BAD_CHARACTER;
-import static com.intellij.psi.TokenType.WHITE_SPACE;
 import static io.yaochi.intellij.plugin.psi.TEALTypes.*;
+import static com.intellij.psi.TokenType.BAD_CHARACTER;
+import static io.yaochi.intellij.plugin.TEALParserDefinition.*;
 
 %%
 
@@ -39,6 +38,8 @@ NUM_OCT = "0" {OCT_DIGIT}+
 STR =      "\""
 STRING = {STR} ( [^\"\\\n\r] | "\\" ("\\" | {STR} | {ESCAPES} | [0-8xuU] ) )* {STR}?
 ESCAPES = [abfnrtv]
+
+%state MAYBE_SEMICOLON
 
 %%
 <YYINITIAL> {

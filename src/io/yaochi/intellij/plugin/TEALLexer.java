@@ -1,41 +1,13 @@
 package io.yaochi.intellij.plugin;
 
-import com.intellij.lexer.FlexLexer;
-import com.intellij.psi.tree.IElementType;
+import com.intellij.lexer.FlexAdapter;
+import com.intellij.lexer.MergingLexerAdapter;
+import com.intellij.psi.tree.TokenSet;
+import io.yaochi.intellij.plugin.parser._TEALLexer;
 
-import java.io.IOException;
-
-public class TEALLexer implements FlexLexer {
-	TEALLexer() {
-	}
-
-	@Override
-	public void yybegin(int i) {
-
-	}
-
-	@Override
-	public int yystate() {
-		return 0;
-	}
-
-	@Override
-	public int getTokenStart() {
-		return 0;
-	}
-
-	@Override
-	public int getTokenEnd() {
-		return 0;
-	}
-
-	@Override
-	public IElementType advance() throws IOException {
-		return null;
-	}
-
-	@Override
-	public void reset(CharSequence charSequence, int i, int i1, int i2) {
-
+public class TEALLexer extends MergingLexerAdapter {
+	public TEALLexer() {
+		super(new FlexAdapter(new _TEALLexer()), TokenSet.orSet(TEALParserDefinition.COMMENTS, TEALParserDefinition.WHITESPACES));
 	}
 }
+

@@ -12,6 +12,7 @@ import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.IFileElementType;
 import com.intellij.psi.tree.TokenSet;
 import io.yaochi.intellij.plugin.parser.TEALParser;
+import io.yaochi.intellij.plugin.psi.TEALFile;
 import io.yaochi.intellij.plugin.psi.TEALTokenType;
 import org.jetbrains.annotations.NotNull;
 import static io.yaochi.intellij.plugin.psi.TEALTypes.*;
@@ -56,12 +57,12 @@ public class TEALParserDefinition implements ParserDefinition {
 
 	@Override
 	public IFileElementType getFileNodeType() {
-		return null;
+		return TEALFileElementType.INSTANCE;
 	}
 
 	@Override
 	public PsiFile createFile(FileViewProvider fileViewProvider) {
-		return null;
+		return new TEALFile(fileViewProvider);
 	}
 
 	@Override

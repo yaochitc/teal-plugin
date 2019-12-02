@@ -28,9 +28,13 @@ WS = [ \t\f]
 LINE_COMMENT = "//" [^\r\n]*
 MULTILINE_COMMENT = "/*" ( ([^"*"]|[\r\n])* ("*"+ [^"*""/"] )? )* ("*" | "*"+"/")?
 
+HEX_DIGIT = [0-9A-Fa-f]
 INT_DIGIT = [0-9]
+OCT_DIGIT = [0-7]
 
 NUM_INT = "0" | ([1-9] {INT_DIGIT}*)
+NUM_HEX = ("0x" | "0X") {HEX_DIGIT}+
+NUM_OCT = "0" {OCT_DIGIT}+
 
 STR =      "\""
 STRING = {STR} ( [^\"\\\n\r] | "\\" ("\\" | {STR} | {ESCAPES} | [0-8xuU] ) )* {STR}?
@@ -103,6 +107,8 @@ ESCAPES = [abfnrtv]
   "byte"               { return BYTE; }
   "base64"             { return BASE64; }
 
+  {NUM_OCT}            { yybegin(MAYBE_SEMICOLON); return RAW_OCT; }
+  {NUM_HEX}            { yybegin(MAYBE_SEMICOLON); return RAW_HEX; }
   {NUM_INT}            { yybegin(MAYBE_SEMICOLON); return RAW_INT; }
 }
 

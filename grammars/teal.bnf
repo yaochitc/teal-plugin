@@ -68,15 +68,25 @@
   ]
 }
 
-PushStackExpr ::=
-    PushIntExpr
-    PushByteExpr
-  | PushArgExpr
+Expression ::=
+    PushStackExpr
+  | OpExpr
 
+private PushStackExpr ::=
+    PushIntExpr
+  | PushByteExpr
+  | PushArgExpr
 
 PushIntExpr ::= int int {pin=1}
 PushByteExpr ::= byte (base64 string | bytes) {pin(".*")=1}
 PushArgExpr ::= arg int {pin=1}
+
+private OpExpr ::=
+    CondOpExpr
+  | BitOpExpr
+  | AddOpExpr
+  | MulOpExpr
+  | UnaryOpExpr
 
 RelOpExpr ::= '==' | '!=' | '<' | '<=' | '>' | '>='
 CondOpExpr ::= '&&' | '||'

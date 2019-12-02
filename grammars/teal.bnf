@@ -70,11 +70,18 @@
 
 PushStackExpr ::=
     PushIntExpr
-  | PushByteExpr
+    PushByteExpr
   | PushArgExpr
 
 
-PushIntExpr ::= int
-PushByteExpr ::= byte
-PushArgExpr ::= arg
+PushIntExpr ::= int int {pin=1}
+PushByteExpr ::= byte (base64 string | bytes) {pin(".*")=1}
+PushArgExpr ::= arg int {pin=1}
+
+RelOpExpr ::= '==' | '!=' | '<' | '<=' | '>' | '>='
+CondOpExpr ::= '&&' | '||'
+BitOpExpr ::= '|' | '&' | '^' | '~'
+AddOpExpr ::= '+' | '-'
+MulOpExpr ::= '*' | '/' | '%'
+UnaryOpExpr ::= '!'
 

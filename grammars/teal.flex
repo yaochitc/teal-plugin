@@ -22,13 +22,29 @@ import static io.yaochi.intellij.plugin.psi.TEALTypes.*;
 %type IElementType
 %unicode
 
-EOL=\R
-WHITE_SPACE=\s+
+NL = \R
+WS = [ \t\f]
 
+LINE_COMMENT = "//" [^\r\n]*
+MULTILINE_COMMENT = "/*" ( ([^"*"]|[\r\n])* ("*"+ [^"*""/"] )? )* ("*" | "*"+"/")?
+
+INT_DIGIT = [0-9]
+
+NUM_INT = "0" | ([1-9] {INT_DIGIT}*)
+
+STR =      "\""
+STRING = {STR} ( [^\"\\\n\r] | "\\" ("\\" | {STR} | {ESCAPES} | [0-8xuU] ) )* {STR}?
+ESCAPES = [abfnrtv]
 
 %%
 <YYINITIAL> {
-  {WHITE_SPACE}        { return WHITE_SPACE; }
+  {WS}                 { return WS; }
+  {NL}+                { return NLS; }
+
+  {LINE_COMMENT}       { return LINE_COMMENT; }
+  {MULTILINE_COMMENT}+ { return MULTILINE_COMMENT; }
+
+  {STRING}             { yybegin(MAYBE_SEMICOLON); return STRING; }
 
   "err"                { return ERROR; }
   "sha256"             { return SHA256; }
@@ -58,12 +74,14 @@ WHITE_SPACE=\s+
   "~"                  { return BIT_NOT; }
   "mulw"               { return MULW; }
   "intcblock"          { return INTCBLOCK; }
+  "int"                { return INT; }
   "intc"               { return INTC; }
   "intc_0"             { return INTC_0; }
   "intc_1"             { return INTC_1; }
   "intc_2"             { return INTC_2; }
   "intc_3"             { return INTC_3; }
   "bytecblock"         { return BYTECBLOCK; }
+  "byte"               { return BYTE; }
   "bytec"              { return BYTEC; }
   "bytec_0"            { return BYTEC_0; }
   "bytec_1"            { return BYTEC_1; }
@@ -82,13 +100,10 @@ WHITE_SPACE=\s+
   "bnz"                { return BNZ; }
   "pop"                { return POP; }
   "dup"                { return DUP; }
-  "int"                { return INT; }
   "byte"               { return BYTE; }
   "base64"             { return BASE64; }
-  "string"             { return STRING; }
-  "bytes"              { return BYTES; }
 
-
+  {NUM_INT}            { yybegin(MAYBE_SEMICOLON); return RAW_INT; }
 }
 
 [^] { return BAD_CHARACTER; }

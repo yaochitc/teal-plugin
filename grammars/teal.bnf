@@ -41,12 +41,14 @@
     BIT_NOT              =  "~"
     MULW                 =  "mulw"
     INTCBLOCK            =  "intcblock"
+    INT                  =  "int"
     INTC                 =  "intc"
     INTC_0               =  "intc_0"
     INTC_1               =  "intc_1"
     INTC_2               =  "intc_2"
     INTC_3               =  "intc_3"
     BYTECBLOCK           =  "bytecblock"
+    BYTE                 =  "byte"
     BYTEC                =  "bytec"
     BYTEC_0              =  "bytec_0"
     BYTEC_1              =  "bytec_1"
@@ -77,9 +79,9 @@ private PushStackExpr ::=
   | PushByteExpr
   | PushArgExpr
 
-PushIntExpr ::= int int {pin=1}
-PushByteExpr ::= byte (base64 string | bytes) {pin(".*")=1}
-PushArgExpr ::= arg int {pin=1}
+PushIntExpr ::= int raw_int {pin=1}
+PushByteExpr ::= byte (base64 raw_string | raw_bytes) {pin(".*")=1}
+PushArgExpr ::= arg raw_int {pin=1}
 
 private OpExpr ::=
     CondOpExpr

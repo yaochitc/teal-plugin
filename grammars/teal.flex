@@ -14,12 +14,13 @@ import static io.yaochi.intellij.plugin.TEALParserDefinition.*;
   }
 %}
 
-%public
 %class _TEALLexer
 %implements FlexLexer
+%unicode
+%public
+
 %function advance
 %type IElementType
-%unicode
 
 NL = \R
 WS = [ \t\f]
@@ -109,6 +110,13 @@ IDENT = {LETTER} ({LETTER} | {DIGIT} )*
   {NUM_OCT}            { yybegin(MAYBE_SEMICOLON); return RAW_OCT; }
   {NUM_HEX}            { yybegin(MAYBE_SEMICOLON); return RAW_HEX; }
   {NUM_INT}            { yybegin(MAYBE_SEMICOLON); return RAW_INT; }
+
+  .                    { return BAD_CHARACTER; }
 }
 
-[^] { return BAD_CHARACTER; }
+<MAYBE_SEMICOLON> {
+  {WS}                 { return WS; }
+  {NL}                 { yybegin(YYINITIAL); yypushback(yytext().length()); return SEMICOLON_SYNTHETIC; }
+  {LINE_COMMENT}       { return LINE_COMMENT; }
+  .                    { yybegin(YYINITIAL); yypushback(yytext().length()); }
+}

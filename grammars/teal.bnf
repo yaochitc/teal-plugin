@@ -5,70 +5,77 @@
   psiImplClassSuffix='Impl'
   psiPackage='io.yaochi.intellij.plugin.psi'
   psiImplPackage='io.yaochi.intellij.plugin.psi.impl'
-  psiImplUtilClass="io.yaochi.intellij.plugin.psi.impl.TEALPsiImplUtil"
-  parserUtilClass="io.yaochi.intellij.plugin.parser.TEALParserUtil"
+  psiImplUtilClass='io.yaochi.intellij.plugin.psi.impl.TEALPsiImplUtil'
+  parserUtilClass='io.yaochi.intellij.plugin.parser.TEALParserUtil'
 
-  elementTypeHolderClass="io.yaochi.intellij.plugin.psi.TEALTypes"
-  elementTypeClass="io.yaochi.intellij.plugin.psi.TEALElementType"
-  tokenTypeClass="io.yaochi.intellij.plugin.psi.TEALTokenType"
+  elementTypeHolderClass='io.yaochi.intellij.plugin.psi.TEALTypes'
+  elementTypeClass='io.yaochi.intellij.plugin.psi.TEALElementType'
+  tokenTypeClass='io.yaochi.intellij.plugin.psi.TEALTokenType'
 
   tokens = [
-    ERR                  = "err"
-    SHA256               = "sha256"
-    KECCAK256            = "keccak256"
-    SHA512_256           = "sha512_256"
-    ED25519VERIFY        = "ed25519verify"
-    PLUS                 =  "+"
-    MINUS                =  "-"
-    DIV                  =  "/"
-    MUL                  =  "*"
-    LESS                 =  "<"
-    GREATER              =  ">"
-    LESS_OR_EQUAL        =  "<="
-    GREATER_OR_EQUAL     =  ">="
-    COND_AND             =  "&&"
-    COND_OR              =  "||"
-    EQ                   =  "=="
-    NOT_EQ               =  "!="
-    NOT                  =  "!"
-    LEN                  =  "len"
-    ITOB                 =  "itob"
-    BTOI                 =  "btoi"
-    MODULO               =  "%"
-    BIT_OR               =  "|"
-    BIT_AND              =  "&"
-    BIT_XOR              =  "^"
-    BIT_NOT              =  "~"
-    MULW                 =  "mulw"
-    INTCBLOCK            =  "intcblock"
-    INT                  =  "int"
-    INTC                 =  "intc"
-    INTC_0               =  "intc_0"
-    INTC_1               =  "intc_1"
-    INTC_2               =  "intc_2"
-    INTC_3               =  "intc_3"
-    BYTECBLOCK           =  "bytecblock"
-    BYTE                 =  "byte"
-    BYTEC                =  "bytec"
-    BYTEC_0              =  "bytec_0"
-    BYTEC_1              =  "bytec_1"
-    BYTEC_2              =  "bytec_2"
-    BYTEC_3              =  "bytec_3"
-    ARG                  =  "arg"
-    ARG_0                =  "arg_0"
-    ARG_1                =  "arg_1"
-    ARG_2                =  "arg_2"
-    ARG_3                =  "arg_3"
-    TXN                  =  "txn"
-    GLOBAL               =  "global"
-    GTXN                 =  "gtxn"
-    LOAD                 =  "load"
-    STORE                =  "store"
-    BNZ                  =  "bnz"
-    POP                  =  "pop"
-    DUP                  =  "dup"
+    ERR                  = 'err'
+    SHA256               = 'sha256'
+    KECCAK256            = 'keccak256'
+    SHA512_256           = 'sha512_256'
+    ED25519VERIFY        = 'ed25519verify'
+    PLUS                 =  '+'
+    MINUS                =  '-'
+    DIV                  =  '/'
+    MUL                  =  '*'
+    LESS                 =  '<'
+    GREATER              =  '>'
+    LESS_OR_EQUAL        =  '<='
+    GREATER_OR_EQUAL     =  '>='
+    COND_AND             =  '&&'
+    COND_OR              =  '||'
+    EQ                   =  '=='
+    NOT_EQ               =  '!='
+    NOT                  =  '!'
+    LEN                  =  'len'
+    ITOB                 =  'itob'
+    BTOI                 =  'btoi'
+    MODULO               =  '%'
+    BIT_OR               =  '|'
+    BIT_AND              =  '&'
+    BIT_XOR              =  '^'
+    BIT_NOT              =  '~'
+    MULW                 =  'mulw'
+    INTCBLOCK            =  'intcblock'
+    INT                  =  'int'
+    INTC                 =  'intc'
+    INTC_0               =  'intc_0'
+    INTC_1               =  'intc_1'
+    INTC_2               =  'intc_2'
+    INTC_3               =  'intc_3'
+    BYTECBLOCK           =  'bytecblock'
+    BYTE                 =  'byte'
+    BYTEC                =  'bytec'
+    BYTEC_0              =  'bytec_0'
+    BYTEC_1              =  'bytec_1'
+    BYTEC_2              =  'bytec_2'
+    BYTEC_3              =  'bytec_3'
+    ARG                  =  'arg'
+    ARG_0                =  'arg_0'
+    ARG_1                =  'arg_1'
+    ARG_2                =  'arg_2'
+    ARG_3                =  'arg_3'
+    TXN                  =  'txn'
+    GLOBAL               =  'global'
+    GTXN                 =  'gtxn'
+    LOAD                 =  'load'
+    STORE                =  'store'
+    BNZ                  =  'bnz'
+    POP                  =  'pop'
+    DUP                  =  'dup'
+    SEMICOLON_SYNTHETIC  =  '<NL>'
   ]
 }
+
+File ::= TopLevelDeclaration*
+
+private semi ::= '<NL>' | <<eof>>
+
+private TopLevelDeclaration ::= !<<eof>> Expression semi {pin=1}
 
 Expression ::=
     PushStackExpr

@@ -14,7 +14,6 @@
 
   tokens = [
     ERROR                = "err"
-    BASE64               = "base64"
     SHA256               = "sha256"
     KECCAK256            = "keccak256"
     SHA512_256           = "sha512_256"
@@ -74,6 +73,7 @@
 Expression ::=
     PushStackExpr
   | OpExpr
+  | LabelExpr
 
 private PushStackExpr ::=
     PushIntExpr
@@ -81,11 +81,12 @@ private PushStackExpr ::=
   | PushArgExpr
 
 PushIntExpr ::= int (raw_hex | raw_int | raw_oct) {pin=1}
-PushByteExpr ::= byte (base64 string | raw_hex) {pin(".*")=1}
+PushByteExpr ::= byte raw_hex {pin(".*")=1}
 PushArgExpr ::= arg raw_int {pin=1}
 
 private OpExpr ::=
-    CondOpExpr
+    RelOpExpr
+  | CondOpExpr
   | BitOpExpr
   | AddOpExpr
   | MulOpExpr
@@ -98,3 +99,4 @@ AddOpExpr ::= '+' | '-'
 MulOpExpr ::= '*' | '/' | '%'
 UnaryOpExpr ::= '!'
 
+LabelExpr ::=  (identifier ':' ) | (bnz identifier) | err | pop | dup

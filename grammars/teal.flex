@@ -25,7 +25,9 @@ NL = \R
 WS = [ \t\f]
 
 LINE_COMMENT = "//" [^\r\n]*
-MULTILINE_COMMENT = "/*" ( ([^"*"]|[\r\n])* ("*"+ [^"*""/"] )? )* ("*" | "*"+"/")?
+
+LETTER = [:letter:] | "_"
+DIGIT =  [:digit:]
 
 HEX_DIGIT = [0-9A-Fa-f]
 INT_DIGIT = [0-9]
@@ -35,9 +37,7 @@ NUM_INT = "0" | ([1-9] {INT_DIGIT}*)
 NUM_HEX = ("0x" | "0X") {HEX_DIGIT}+
 NUM_OCT = "0" {OCT_DIGIT}+
 
-STR =      "\""
-STRING = {STR} ( [^\"\\\n\r] | "\\" ("\\" | {STR} | {ESCAPES} | [0-8xuU] ) )* {STR}?
-ESCAPES = [abfnrtv]
+IDENT = {LETTER} ({LETTER} | {DIGIT} )*
 
 %state MAYBE_SEMICOLON
 
@@ -47,9 +47,6 @@ ESCAPES = [abfnrtv]
   {NL}+                { return NLS; }
 
   {LINE_COMMENT}       { return LINE_COMMENT; }
-  {MULTILINE_COMMENT}+ { return MULTILINE_COMMENT; }
-
-  {STRING}             { yybegin(MAYBE_SEMICOLON); return STRING; }
 
   "err"                { return ERROR; }
   "sha256"             { return SHA256; }
@@ -106,7 +103,8 @@ ESCAPES = [abfnrtv]
   "pop"                { return POP; }
   "dup"                { return DUP; }
   "byte"               { return BYTE; }
-  "base64"             { return BASE64; }
+
+  {IDENT}              { yybegin(MAYBE_SEMICOLON); return IDENTIFIER; }
 
   {NUM_OCT}            { yybegin(MAYBE_SEMICOLON); return RAW_OCT; }
   {NUM_HEX}            { yybegin(MAYBE_SEMICOLON); return RAW_HEX; }

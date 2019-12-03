@@ -19,18 +19,17 @@ import static io.yaochi.intellij.plugin.psi.TEALTypes.*;
 
 public class TEALParserDefinition implements ParserDefinition {
 	public static final IElementType LINE_COMMENT = new TEALTokenType("TEAL_LINE_COMMENT");
-	public static final IElementType MULTILINE_COMMENT = new TEALTokenType("TEAL_MULTILINE_COMMENT");
 
 	public static final IElementType WS = new TEALTokenType("TEAL_WHITESPACE");
 	public static final IElementType NLS = new TEALTokenType("TEAL_WS_NEW_LINES");
 
 	public static final TokenSet WHITESPACES = TokenSet.create(WS, NLS);
-	public static final TokenSet COMMENTS = TokenSet.create(LINE_COMMENT, MULTILINE_COMMENT);
+	public static final TokenSet COMMENTS = TokenSet.create(LINE_COMMENT);
 
 	@NotNull
 	@Override
 	public Lexer createLexer(Project project) {
-		return new TEALLexerAdapter();
+		return new TEALLexer();
 	}
 
 	@NotNull

@@ -48,7 +48,7 @@ IDENT = {LETTER} ({LETTER} | {DIGIT} )*
 
   {LINE_COMMENT}       { return LINE_COMMENT; }
 
-  "err"                { return ERROR; }
+  "err"                { return ERR; }
   "sha256"             { return SHA256; }
   "keccak256"          { return KECCAK256; }
   "sha512_256"         { return SHA512_256; }

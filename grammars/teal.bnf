@@ -13,7 +13,7 @@
   tokenTypeClass="io.yaochi.intellij.plugin.psi.TEALTokenType"
 
   tokens = [
-    ERROR                = "err"
+    ERR                  = "err"
     SHA256               = "sha256"
     KECCAK256            = "keccak256"
     SHA512_256           = "sha512_256"

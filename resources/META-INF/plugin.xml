@@ -19,6 +19,9 @@
 
   <extensions defaultExtensionNs="com.intellij">
     <fileTypeFactory implementation="io.yaochi.intellij.plugin.TEALFileTypeFactory" />
+    <lang.parserDefinition language="TEAL" implementationClass="io.yaochi.intellij.plugin.TEALParserDefinition"/>
+    <lang.syntaxHighlighterFactory language="TEAL" implementationClass="io.yaochi.intellij.plugin.highlighting.TEALSyntaxHighlighterFactory"/>
+    <colorSettingsPage implementation="io.yaochi.intellij.plugin.highlighting.TEALColorSettingsPage"/>
   </extensions>
 
   <actions>

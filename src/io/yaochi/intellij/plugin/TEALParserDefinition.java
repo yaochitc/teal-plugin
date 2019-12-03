@@ -46,7 +46,7 @@ public class TEALParserDefinition implements ParserDefinition {
 	@NotNull
 	@Override
 	public TokenSet getStringLiteralElements() {
-		return null;
+		return TokenSet.EMPTY;
 	}
 
 	@Override

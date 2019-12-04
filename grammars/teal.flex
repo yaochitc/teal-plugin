@@ -49,7 +49,6 @@ IDENT = {LETTER} ({LETTER} | {DIGIT} )*
 
   {LINE_COMMENT}       { return LINE_COMMENT; }
 
-  "err"                { return ERR; }
   "sha256"             { return SHA256; }
   "keccak256"          { return KECCAK256; }
   "sha512_256"         { return SHA512_256; }
@@ -100,10 +99,10 @@ IDENT = {LETTER} ({LETTER} | {DIGIT} )*
   "gtxn"               { return GTXN; }
   "load"               { return LOAD; }
   "store"              { return STORE; }
-  "bnz"                { return BNZ; }
-  "pop"                { return POP; }
-  "dup"                { return DUP; }
-  "byte"               { return BYTE; }
+  "err"                { yybegin(MAYBE_SEMICOLON); return ERR; }
+  "bnz"                { yybegin(MAYBE_SEMICOLON); return BNZ; }
+  "pop"                { yybegin(MAYBE_SEMICOLON); return POP; }
+  "dup"                { yybegin(MAYBE_SEMICOLON); return DUP; }
 
   {IDENT}              { yybegin(MAYBE_SEMICOLON); return IDENTIFIER; }
 

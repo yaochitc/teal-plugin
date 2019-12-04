@@ -18,6 +18,8 @@ public class TEALSyntaxHighlighter extends SyntaxHighlighterBase {
 
 	static {
 		fillMap(ATTRIBUTES, LINE_COMMENT, TEALParserDefinition.LINE_COMMENT);
+		fillMap(ATTRIBUTES, TEALParserDefinition.KEYWORDS, KEYWORD);
+		fillMap(ATTRIBUTES, TEALParserDefinition.NUMBERS, NUMBER);
 	}
 
 	@NotNull

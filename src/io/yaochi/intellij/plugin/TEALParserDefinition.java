@@ -26,6 +26,7 @@ public class TEALParserDefinition implements ParserDefinition {
 
 	public static final TokenSet WHITESPACES = TokenSet.create(WS, NLS);
 	public static final TokenSet COMMENTS = TokenSet.create(LINE_COMMENT);
+	public static final TokenSet STRING_LITERALS = TokenSet.create(STRING);
 	public static final TokenSet NUMBERS = TokenSet.create(RAW_HEX, RAW_INT, RAW_OCT);
 	public static final TokenSet KEYWORDS = TokenSet.create(
 			INT, BYTE, ARG, TXN, GLOBAL, GTXN, LOAD, STORE, ERR, BNZ, POP, DUP);
@@ -53,7 +54,7 @@ public class TEALParserDefinition implements ParserDefinition {
 	@NotNull
 	@Override
 	public TokenSet getStringLiteralElements() {
-		return TokenSet.EMPTY;
+		return STRING_LITERALS;
 	}
 
 	@Override

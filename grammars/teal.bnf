@@ -13,6 +13,10 @@
   tokenTypeClass='io.yaochi.intellij.plugin.psi.TEALTokenType'
 
   tokens = [
+    B32                  = 'b32'
+    B64                  = 'b64'
+    BASE32               = 'base32'
+    BASE64               = 'base64'
     SHA256               = 'sha256'
     KECCAK256            = 'keccak256'
     SHA512_256           = 'sha512_256'
@@ -121,7 +125,7 @@ private PushStackExpr ::=
   | PushArgExpr
 
 PushIntExpr ::= int (raw_hex | raw_int | raw_oct) {pin=1}
-PushByteExpr ::= byte raw_hex {pin=1}
+PushByteExpr ::= byte (raw_hex | (b32 | b64 | base32 | base64) string){pin=1}
 PushArgExpr ::= arg raw_int {pin=1}
 
 private StoreLoadExpr ::= (store | load) raw_int {pin=1}
@@ -149,7 +153,7 @@ private GlobalFieldExpr ::= global GlobalField {pin=1}
 
 TxnField ::= (Sender | Fee | FirstValid | FirstValidTime | LastValid | Note  | Lease | Receiver | Amount
   | CloseRemainderTo | VotePK | SelectionPK | VoteFirst | VoteLast | VoteKeyDilution | Type | TypeEnum | XferAsset
-  | AssetAmount | AssetSender | AssetReceiver | AssetCloseTo | GroupIndex | TxID )
+  | AssetAmount | AssetSender | AssetReceiver | AssetCloseTo | GroupIndex | TxID)
 
 GlobalField ::= (MinTxnFee | MinBalance | MaxTxnLife | ZeroAddress | GroupSize)
 

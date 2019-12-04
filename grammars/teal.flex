@@ -40,7 +40,11 @@ NUM_OCT = "0" {OCT_DIGIT}+
 
 IDENT = {LETTER} ({LETTER} | {DIGIT} )*
 
+STRING = [^\"\\\n\r]*
+
 %state MAYBE_SEMICOLON
+%state MAYBE_STRING
+
 
 %%
 <YYINITIAL> {
@@ -49,6 +53,10 @@ IDENT = {LETTER} ({LETTER} | {DIGIT} )*
 
   {LINE_COMMENT}       { return LINE_COMMENT; }
 
+  "b32"                { yybegin(MAYBE_STRING); return SHA256; }
+  "b64"                { yybegin(MAYBE_STRING); return SHA256; }
+  "base32"             { yybegin(MAYBE_STRING); return SHA256; }
+  "base64"             { yybegin(MAYBE_STRING); return SHA256; }
   "sha256"             { return SHA256; }
   "keccak256"          { return KECCAK256; }
   "sha512_256"         { return SHA512_256; }
@@ -143,6 +151,14 @@ IDENT = {LETTER} ({LETTER} | {DIGIT} )*
 }
 
 <MAYBE_SEMICOLON> {
+  {WS}                 { return WS; }
+  {NL}                 { yybegin(YYINITIAL); yypushback(yytext().length()); return SEMICOLON_SYNTHETIC; }
+  {LINE_COMMENT}       { return LINE_COMMENT; }
+  .                    { yybegin(YYINITIAL); yypushback(yytext().length()); }
+}
+
+<MAYBE_STRING> {
+  {STRING}             { return STRING; }
   {WS}                 { return WS; }
   {NL}                 { yybegin(YYINITIAL); yypushback(yytext().length()); return SEMICOLON_SYNTHETIC; }
   {LINE_COMMENT}       { return LINE_COMMENT; }

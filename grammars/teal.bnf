@@ -108,7 +108,11 @@ private TopLevelDeclaration ::= !<<eof>> Expression semi {pin=1}
 
 Expression ::=
     PushStackExpr
+  | StoreLoadExpr
   | OpExpr
+  | TxnFieldExpr
+  | GlobalFieldExpr
+  | GroupTxnFieldExpr
   | LabelExpr
 
 private PushStackExpr ::=
@@ -117,8 +121,10 @@ private PushStackExpr ::=
   | PushArgExpr
 
 PushIntExpr ::= int (raw_hex | raw_int | raw_oct) {pin=1}
-PushByteExpr ::= byte raw_hex {pin(".*")=1}
+PushByteExpr ::= byte raw_hex {pin=1}
 PushArgExpr ::= arg raw_int {pin=1}
+
+private StoreLoadExpr ::= (store | load) raw_int {pin=1}
 
 private OpExpr ::=
     RelOpExpr
@@ -135,4 +141,16 @@ AddOpExpr ::= '+' | '-'
 MulOpExpr ::= '*' | '/' | '%'
 UnaryOpExpr ::= '!'
 
-LabelExpr ::=  (identifier ':' ) | (bnz identifier) | err | pop | dup
+private TxnFieldExpr ::= txn TxnField {pin=1}
+
+private GroupTxnFieldExpr ::= gtxn raw_int TxnField {pin=1}
+
+private GlobalFieldExpr ::= global GlobalField {pin=1}
+
+TxnField ::= (Sender | Fee | FirstValid | FirstValidTime | LastValid | Note  | Lease | Receiver | Amount
+  | CloseRemainderTo | VotePK | SelectionPK | VoteFirst | VoteLast | VoteKeyDilution | Type | TypeEnum | XferAsset
+  | AssetAmount | AssetSender | AssetReceiver | AssetCloseTo | GroupIndex | TxID )
+
+GlobalField ::= (MinTxnFee | MinBalance | MaxTxnLife | ZeroAddress | GroupSize)
+
+private LabelExpr ::=  (identifier ':' ) | (bnz identifier) | err | pop | dup

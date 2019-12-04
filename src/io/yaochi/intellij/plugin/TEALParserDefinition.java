@@ -15,6 +15,7 @@ import io.yaochi.intellij.plugin.parser.TEALParser;
 import io.yaochi.intellij.plugin.psi.TEALFile;
 import io.yaochi.intellij.plugin.psi.TEALTokenType;
 import org.jetbrains.annotations.NotNull;
+
 import static io.yaochi.intellij.plugin.psi.TEALTypes.*;
 
 public class TEALParserDefinition implements ParserDefinition {
@@ -28,6 +29,9 @@ public class TEALParserDefinition implements ParserDefinition {
 	public static final TokenSet NUMBERS = TokenSet.create(RAW_HEX, RAW_INT, RAW_OCT);
 	public static final TokenSet KEYWORDS = TokenSet.create(
 			INT, BYTE, ARG, TXN, GLOBAL, GTXN, LOAD, STORE, ERR, BNZ, POP, DUP);
+	public static final TokenSet OPERATORS = TokenSet.create(
+			PLUS, MINUS, DIV, MUL, LESS, GREATER, LESS_OR_EQUAL, GREATER_OR_EQUAL,
+			COND_AND, COND_OR, EQ, NOT_EQ, NOT, BIT_OR, BIT_AND, BIT_XOR, BIT_NOT);
 
 	@NotNull
 	@Override

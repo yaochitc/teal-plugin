@@ -53,19 +53,19 @@ IDENT = {LETTER} ({LETTER} | {DIGIT} )*
   "keccak256"          { return KECCAK256; }
   "sha512_256"         { return SHA512_256; }
   "ed25519verify"      { return ED25519VERIFY; }
-  "+"                  { return PLUS; }
-  "-"                  { return MINUS; }
-  "/"                  { return DIV; }
-  "*"                  { return MUL; }
-  "<"                  { return LESS; }
-  ">"                  { return GREATER; }
-  "<="                 { return LESS_OR_EQUAL; }
-  ">="                 { return GREATER_OR_EQUAL; }
-  "&&"                 { return COND_AND; }
-  "||"                 { return COND_OR; }
-  "=="                 { return EQ; }
-  "!="                 { return NOT_EQ; }
-  "!"                  { return NOT; }
+  "+"                  { yybegin(MAYBE_SEMICOLON); return PLUS; }
+  "-"                  { yybegin(MAYBE_SEMICOLON); return MINUS; }
+  "/"                  { yybegin(MAYBE_SEMICOLON); return DIV; }
+  "*"                  { yybegin(MAYBE_SEMICOLON); return MUL; }
+  "<"                  { yybegin(MAYBE_SEMICOLON); return LESS; }
+  ">"                  { yybegin(MAYBE_SEMICOLON); return GREATER; }
+  "<="                 { yybegin(MAYBE_SEMICOLON); return LESS_OR_EQUAL; }
+  ">="                 { yybegin(MAYBE_SEMICOLON); return GREATER_OR_EQUAL; }
+  "&&"                 { yybegin(MAYBE_SEMICOLON); return COND_AND; }
+  "||"                 { yybegin(MAYBE_SEMICOLON); return COND_OR; }
+  "=="                 { yybegin(MAYBE_SEMICOLON); return EQ; }
+  "!="                 { yybegin(MAYBE_SEMICOLON); return NOT_EQ; }
+  "!"                  { yybegin(MAYBE_SEMICOLON); return NOT; }
   "len"                { return LEN; }
   "itob"               { return ITOB; }
   "btoi"               { return BTOI; }

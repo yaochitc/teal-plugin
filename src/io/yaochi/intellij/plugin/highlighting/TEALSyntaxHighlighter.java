@@ -6,6 +6,7 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
 import com.intellij.psi.tree.IElementType;
 import io.yaochi.intellij.plugin.TEALLexer;
 import io.yaochi.intellij.plugin.TEALParserDefinition;
+import io.yaochi.intellij.plugin.psi.TEALTypes;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -18,6 +19,7 @@ public class TEALSyntaxHighlighter extends SyntaxHighlighterBase {
 
 	static {
 		fillMap(ATTRIBUTES, LINE_COMMENT, TEALParserDefinition.LINE_COMMENT);
+		fillMap(ATTRIBUTES, IDENTIFIER, TEALTypes.IDENTIFIER);
 		fillMap(ATTRIBUTES, TEALParserDefinition.KEYWORDS, KEYWORD);
 		fillMap(ATTRIBUTES, TEALParserDefinition.NUMBERS, NUMBER);
 	}

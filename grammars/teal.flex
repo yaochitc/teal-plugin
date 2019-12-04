@@ -103,6 +103,35 @@ IDENT = {LETTER} ({LETTER} | {DIGIT} )*
   "bnz"                { yybegin(MAYBE_SEMICOLON); return BNZ; }
   "pop"                { yybegin(MAYBE_SEMICOLON); return POP; }
   "dup"                { yybegin(MAYBE_SEMICOLON); return DUP; }
+  "Sender"             { yybegin(MAYBE_SEMICOLON); return SENDER; }
+  "Fee"                { yybegin(MAYBE_SEMICOLON); return FEE; }
+  "FirstValid"         { yybegin(MAYBE_SEMICOLON); return FIRSTVALID; }
+  "FirstValidTime"     { yybegin(MAYBE_SEMICOLON); return FIRSTVALIDTIME; }
+  "LastValid"          { yybegin(MAYBE_SEMICOLON); return LASTVALID; }
+  "Note"               { yybegin(MAYBE_SEMICOLON); return NOTE; }
+  "Lease"              { yybegin(MAYBE_SEMICOLON); return LEASE; }
+  "Receiver"           { yybegin(MAYBE_SEMICOLON); return RECEIVER; }
+  "Amount"             { yybegin(MAYBE_SEMICOLON); return AMOUNT; }
+  "CloseRemainderTo"   { yybegin(MAYBE_SEMICOLON); return CLOSEREMAINDERTO; }
+  "VotePK"             { yybegin(MAYBE_SEMICOLON); return VOTEPK; }
+  "SelectionPK"        { yybegin(MAYBE_SEMICOLON); return SELECTIONPK; }
+  "VoteFirst"          { yybegin(MAYBE_SEMICOLON); return VOTEFIRST; }
+  "VoteLast"           { yybegin(MAYBE_SEMICOLON); return VOTELAST; }
+  "VoteKeyDilution"    { yybegin(MAYBE_SEMICOLON); return VOTEKEYDILUTION; }
+  "Type"               { yybegin(MAYBE_SEMICOLON); return TYPE; }
+  "TypeEnum"           { yybegin(MAYBE_SEMICOLON); return TYPEENUM; }
+  "XferAsset"          { yybegin(MAYBE_SEMICOLON); return XFERASSET; }
+  "AssetAmount"        { yybegin(MAYBE_SEMICOLON); return ASSETAMOUNT; }
+  "AssetSender"        { yybegin(MAYBE_SEMICOLON); return ASSETSENDER; }
+  "AssetReceiver"      { yybegin(MAYBE_SEMICOLON); return ASSETRECEIVER; }
+  "AssetCloseTo"       { yybegin(MAYBE_SEMICOLON); return ASSETCLOSETO; }
+  "GroupIndex"         { yybegin(MAYBE_SEMICOLON); return GROUPINDEX; }
+  "TxID"               { yybegin(MAYBE_SEMICOLON); return TXID; }
+  "MinTxnFee"          { yybegin(MAYBE_SEMICOLON); return MINTXNFEE; }
+  "MinBalance"         { yybegin(MAYBE_SEMICOLON); return MINBALANCE; }
+  "MaxTxnLife"         { yybegin(MAYBE_SEMICOLON); return MAXTXNLIFE; }
+  "ZeroAddress"        { yybegin(MAYBE_SEMICOLON); return ZEROADDRESS; }
+  "GroupSize"          { yybegin(MAYBE_SEMICOLON); return GROUPSIZE; }
 
   {IDENT}              { yybegin(MAYBE_SEMICOLON); return IDENTIFIER; }
 

@@ -53,10 +53,10 @@ STRING = [^\"\\\n\r]*
 
   {LINE_COMMENT}       { return LINE_COMMENT; }
 
-  "b32"                { yybegin(MAYBE_STRING); return SHA256; }
-  "b64"                { yybegin(MAYBE_STRING); return SHA256; }
-  "base32"             { yybegin(MAYBE_STRING); return SHA256; }
-  "base64"             { yybegin(MAYBE_STRING); return SHA256; }
+  "b32"                { yybegin(MAYBE_STRING); return B32; }
+  "b64"                { yybegin(MAYBE_STRING); return B64; }
+  "base32"             { yybegin(MAYBE_STRING); return BASE32; }
+  "base64"             { yybegin(MAYBE_STRING); return BASE64; }
   "sha256"             { return SHA256; }
   "keccak256"          { return KECCAK256; }
   "sha512_256"         { return SHA512_256; }

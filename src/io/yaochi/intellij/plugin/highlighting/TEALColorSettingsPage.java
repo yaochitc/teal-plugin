@@ -13,7 +13,19 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.util.Map;
 
+import static io.yaochi.intellij.plugin.highlighting.TEALSyntaxHighlightingColors.*;
+
 public class TEALColorSettingsPage implements ColorSettingsPage {
+	private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[]{
+			new AttributesDescriptor("Line comment", LINE_COMMENT),
+			new AttributesDescriptor("Keyword", KEYWORD),
+			new AttributesDescriptor("Identifier", IDENTIFIER),
+			new AttributesDescriptor("String", STRING),
+			new AttributesDescriptor("Number", NUMBER),
+			new AttributesDescriptor("Operator", OPERATOR),
+			new AttributesDescriptor("Constant", CONSTANT),
+	};
+
 	@Nullable
 	@Override
 	public Icon getIcon() {
@@ -41,7 +53,7 @@ public class TEALColorSettingsPage implements ColorSettingsPage {
 	@NotNull
 	@Override
 	public AttributesDescriptor[] getAttributeDescriptors() {
-		return new AttributesDescriptor[0];
+		return DESCRIPTORS;
 	}
 
 	@NotNull

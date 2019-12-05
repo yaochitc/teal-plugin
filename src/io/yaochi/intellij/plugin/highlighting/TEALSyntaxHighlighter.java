@@ -24,6 +24,7 @@ public class TEALSyntaxHighlighter extends SyntaxHighlighterBase {
 		fillMap(ATTRIBUTES, TEALParserDefinition.KEYWORDS, KEYWORD);
 		fillMap(ATTRIBUTES, TEALParserDefinition.NUMBERS, NUMBER);
 		fillMap(ATTRIBUTES, TEALParserDefinition.STRING_LITERALS, STRING);
+		fillMap(ATTRIBUTES, TEALParserDefinition.CONSTANTS, CONSTANT);
 	}
 
 	@NotNull

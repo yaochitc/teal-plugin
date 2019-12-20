@@ -29,7 +29,7 @@ public class TEALParserDefinition implements ParserDefinition {
 	public static final TokenSet STRING_LITERALS = TokenSet.create(STRING);
 	public static final TokenSet NUMBERS = TokenSet.create(RAW_HEX, RAW_INT, RAW_OCT);
 	public static final TokenSet KEYWORDS = TokenSet.create(
-			INT, BYTE, ARG, TXN, GLOBAL, GTXN, LOAD, STORE, ERR, BNZ, POP, DUP);
+			INT, BYTE, ARG, TXN, GLOBAL, GTXN, LOAD, STORE, ERR, BNZ, POP, DUP, ADDR, SHA256, LEN);
 	public static final TokenSet OPERATORS = TokenSet.create(
 			PLUS, MINUS, DIV, MUL, LESS, GREATER, LESS_OR_EQUAL, GREATER_OR_EQUAL,
 			COND_AND, COND_OR, EQ, NOT_EQ, NOT, BIT_OR, BIT_AND, BIT_XOR, BIT_NOT);

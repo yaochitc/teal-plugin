@@ -40,10 +40,12 @@ NUM_OCT = "0" {OCT_DIGIT}+
 
 IDENT = {LETTER} ({LETTER} | {DIGIT} )*
 
+ADDRESS = [0-9A-Z]*
 STRING = [^\"\\\n\r]*
 
 %state MAYBE_SEMICOLON
 %state MAYBE_STRING
+%state MAYBE_ADDRESS
 
 
 %%
@@ -53,14 +55,16 @@ STRING = [^\"\\\n\r]*
 
   {LINE_COMMENT}       { return LINE_COMMENT; }
 
-  "b32"                { yybegin(MAYBE_STRING); return B32; }
-  "b64"                { yybegin(MAYBE_STRING); return B64; }
-  "base32"             { yybegin(MAYBE_STRING); return BASE32; }
-  "base64"             { yybegin(MAYBE_STRING); return BASE64; }
-  "sha256"             { return SHA256; }
+  "addr"               { yybegin(MAYBE_ADDRESS); return ADDR; }
+  "b32"                { yybegin(MAYBE_STRING);  return B32; }
+  "b64"                { yybegin(MAYBE_STRING);  return B64; }
+  "base32"             { yybegin(MAYBE_STRING);  return BASE32; }
+  "base64"             { yybegin(MAYBE_STRING);  return BASE64; }
+
   "keccak256"          { return KECCAK256; }
   "sha512_256"         { return SHA512_256; }
   "ed25519verify"      { return ED25519VERIFY; }
+  "sha256"             { yybegin(MAYBE_SEMICOLON); return SHA256; }
   "+"                  { yybegin(MAYBE_SEMICOLON); return PLUS; }
   "-"                  { yybegin(MAYBE_SEMICOLON); return MINUS; }
   "/"                  { yybegin(MAYBE_SEMICOLON); return DIV; }
@@ -74,7 +78,7 @@ STRING = [^\"\\\n\r]*
   "=="                 { yybegin(MAYBE_SEMICOLON); return EQ; }
   "!="                 { yybegin(MAYBE_SEMICOLON); return NOT_EQ; }
   "!"                  { yybegin(MAYBE_SEMICOLON); return NOT; }
-  "len"                { return LEN; }
+  "len"                { yybegin(MAYBE_SEMICOLON); return LEN; }
   "itob"               { return ITOB; }
   "btoi"               { return BTOI; }
   "%"                  { return MODULO; }
@@ -159,6 +163,14 @@ STRING = [^\"\\\n\r]*
 
 <MAYBE_STRING> {
   {STRING}             { return STRING; }
+  {WS}                 { return WS; }
+  {NL}                 { yybegin(YYINITIAL); yypushback(yytext().length()); return SEMICOLON_SYNTHETIC; }
+  {LINE_COMMENT}       { return LINE_COMMENT; }
+  .                    { yybegin(YYINITIAL); yypushback(yytext().length()); }
+}
+
+<MAYBE_ADDRESS> {
+  {ADDRESS}            { return ADDRESS; }
   {WS}                 { return WS; }
   {NL}                 { yybegin(YYINITIAL); yypushback(yytext().length()); return SEMICOLON_SYNTHETIC; }
   {LINE_COMMENT}       { return LINE_COMMENT; }

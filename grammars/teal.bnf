@@ -13,6 +13,7 @@
   tokenTypeClass='io.yaochi.intellij.plugin.psi.TEALTokenType'
 
   tokens = [
+    ADDR                 = 'addr'
     B32                  = 'b32'
     B64                  = 'b64'
     BASE32               = 'base32'
@@ -113,37 +114,24 @@ private TopLevelDeclaration ::= !<<eof>> Expression semi {pin=1}
 Expression ::=
     PushStackExpr
   | StoreLoadExpr
-  | OpExpr
   | TxnFieldExpr
   | GlobalFieldExpr
   | GroupTxnFieldExpr
+  | OpExpr
   | LabelExpr
 
 private PushStackExpr ::=
     PushIntExpr
   | PushByteExpr
+  | PushAddressExpr
   | PushArgExpr
 
 PushIntExpr ::= int (raw_hex | raw_int | raw_oct) {pin=1}
 PushByteExpr ::= byte (raw_hex | (b32 | b64 | base32 | base64) string){pin=1}
+PushAddressExpr ::= addr address {pin=1}
 PushArgExpr ::= arg raw_int {pin=1}
 
 private StoreLoadExpr ::= (store | load) raw_int {pin=1}
-
-private OpExpr ::=
-    RelOpExpr
-  | CondOpExpr
-  | BitOpExpr
-  | AddOpExpr
-  | MulOpExpr
-  | UnaryOpExpr
-
-RelOpExpr ::= '==' | '!=' | '<' | '<=' | '>' | '>='
-CondOpExpr ::= '&&' | '||'
-BitOpExpr ::= '|' | '&' | '^' | '~'
-AddOpExpr ::= '+' | '-'
-MulOpExpr ::= '*' | '/' | '%'
-UnaryOpExpr ::= '!'
 
 private TxnFieldExpr ::= txn TxnField {pin=1}
 
@@ -156,5 +144,22 @@ TxnField ::= (Sender | Fee | FirstValid | FirstValidTime | LastValid | Note  | L
   | AssetAmount | AssetSender | AssetReceiver | AssetCloseTo | GroupIndex | TxID)
 
 GlobalField ::= (MinTxnFee | MinBalance | MaxTxnLife | ZeroAddress | GroupSize)
+
+private OpExpr ::=
+    RelOpExpr
+  | CondOpExpr
+  | BitOpExpr
+  | AddOpExpr
+  | MulOpExpr
+  | UnaryOpExpr
+  | ByteOpExpr
+
+RelOpExpr ::= '==' | '!=' | '<' | '<=' | '>' | '>='
+CondOpExpr ::= '&&' | '||'
+BitOpExpr ::= '|' | '&' | '^' | '~'
+AddOpExpr ::= '+' | '-'
+MulOpExpr ::= '*' | '/' | '%'
+UnaryOpExpr ::= '!'
+ByteOpExpr ::= len | sha256
 
 private LabelExpr ::=  (identifier ':' ) | (bnz identifier) | err | pop | dup

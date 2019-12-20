@@ -22,6 +22,7 @@
     <lang.parserDefinition language="TEAL" implementationClass="io.yaochi.intellij.plugin.TEALParserDefinition"/>
     <lang.syntaxHighlighterFactory language="TEAL" implementationClass="io.yaochi.intellij.plugin.highlighting.TEALSyntaxHighlighterFactory"/>
     <colorSettingsPage implementation="io.yaochi.intellij.plugin.highlighting.TEALColorSettingsPage"/>
+    <completion.contributor language="TEAL" implementationClass="io.yaochi.intellij.plugin.completion.TEALKeywordCompletionContributor"/>
   </extensions>
 
   <actions>

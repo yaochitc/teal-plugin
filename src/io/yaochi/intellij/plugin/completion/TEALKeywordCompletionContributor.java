@@ -25,11 +25,27 @@ public class TEALKeywordCompletionContributor extends CompletionContributor {
 		extend(CompletionType.BASIC, topLevelPattern(), new TEALKeywordCompletionProvider(KEYWORD_PRIORITY,
 				AutoCompletionPolicy.ALWAYS_AUTOCOMPLETE, "int", "byte", "arg", "txn", "global", "gtxn", "load",
 				"store", "err", "bnz", "pop", "dup"));
+		extend(CompletionType.BASIC, txnFieldPattern(), new TEALKeywordCompletionProvider(KEYWORD_PRIORITY,
+				AutoCompletionPolicy.ALWAYS_AUTOCOMPLETE, "Sender", "Fee", "FirstValid", "FirstValidTime", "LastValid", "Note", "Lease", "Receiver", "Amount"
+				, "CloseRemainderTo", "VotePK", "SelectionPK", "VoteFirst", "VoteLast", "VoteKeyDilution", "Type", "TypeEnum", "XferAsset"
+				, "AssetAmount", "AssetSender", "AssetReceiver", "AssetCloseTo", "GroupIndex", "TxID"));
+		extend(CompletionType.BASIC, globalFieldPattern(), new TEALKeywordCompletionProvider(KEYWORD_PRIORITY,
+				AutoCompletionPolicy.ALWAYS_AUTOCOMPLETE, "MinTxnFee", "MinBalance", "MaxTxnLife", "ZeroAddress", "GroupSize"));
 
 	}
 
 	private static PsiElementPattern.Capture<PsiElement> topLevelPattern() {
 		return onStatementBeginning(TEALTypes.IDENTIFIER).withParent(psiElement(TEALFile.class));
+	}
+
+	private static PsiElementPattern.Capture<PsiElement> txnFieldPattern() {
+		return psiElement(TEALTypes.IDENTIFIER).withParent(psiElement(TEALFile.class))
+				.afterLeaf("txn");
+	}
+
+	private static PsiElementPattern.Capture<PsiElement> globalFieldPattern() {
+		return psiElement(TEALTypes.IDENTIFIER).withParent(psiElement(TEALFile.class))
+				.afterLeaf("global");
 	}
 
 	private static PsiElementPattern.Capture<PsiElement> onStatementBeginning(@NotNull IElementType... tokenTypes) {
@@ -68,7 +84,7 @@ public class TEALKeywordCompletionContributor extends CompletionContributor {
 	private static boolean onStatementBeginning(PsiElement psiElement) {
 		PsiElement prevLeaf = prevVisibleLeafOrNewLine(psiElement);
 		if (prevLeaf == null) {
-			return false;
+			return true;
 		}
 		if (prevLeaf instanceof PsiWhiteSpace) {
 			return true;
